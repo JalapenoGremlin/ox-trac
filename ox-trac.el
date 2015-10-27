@@ -561,7 +561,7 @@ channel."
          (lang (or (assoc-default lang org-trac-lang-alist) lang))
          (code (org-export-format-code-default src-block info))
          (prefix (concat "{{{\n#!" lang "\n"))
-         (suffix "\n}}}"))
+         (suffix "}}}"))
     (concat prefix code suffix)))
 
 ;;;; Statistics Cookie
