@@ -1,0 +1,251 @@
+*  Export Configuration                                                                               :noexport:ARCHIVE:
+#+OPTIONS: ':nil *:t -:t ::t <:t H:9 \n:nil ^:{} arch:headline
+#+OPTIONS: author:t c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
+#+TITLE: tracwiki
+#+DATE: <2015-09-23 Wed>
+#+AUTHOR: Brian J. Carlson
+#+EMAIL: hacker@abutilize.com
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.0.50.1 (Org mode 8.3.1)
+* Headline 1
+** Headline 2
+*** Headline 3
+**** Headline 4
+***** Headline 5
+****** Headline 6
+******* Headline 7 (Not going to happen)
+******** Headline 8 (Not going to happen)
+* Font Styles
+  * Attributes \\
+    *bold* \\
+    /italic/ \\
+    /*Bold and Italic*/ \\
+    =monospaced (*other markup ignored*)=\\
+    _underlined_ \\
+    +strike+through+
+
+  * A few Latex entities Recognized by org-mode \\
+    Right Arrow \rightarrow \\
+    Subset \subset \\
+    For All \forall \\
+    Infinity  \infty \\
+
+  * Subscripts and Superscripts
+    sub_script sub_{script} \\
+    super^script super^{script}
+* Paragraphs
+  This is a paragraph
+  written on two lines. This
+  is the same way that org does it's output
+
+  This is the next paragraph
+* DONE \LaTeX Fragment
+   CLOSED: [2015-10-24 Sat 22:49]
+  $y = \left|\frac{1}{x}\right|$
+
+  That was some latex
+
+* TODO \LaTeX Environment
+  This is also some \LaTeX:
+
+  \begin{equation}
+  \newcommand{\dd}[1]{\mathrm{d}#1}
+
+  y = \left|\frac{1}{x}\right|
+  \ddot{\underline{\mathbf{r}}} = \frac{\dd{}{^2}\underline{\mathbf{r}}}{\dd{t}^2} = 0
+  \end{equation}
+
+* Lists
+  * Bullet List
+    on multiple lines
+    1. nested ordered list
+       1) Right now this doesn't change
+          to a new type of ordered list.
+          * nested un-ordered
+    2. second item in nested ordered
+    3. third
+    4. fourth
+    5. fifth
+       with some stuff below
+    6. sixith
+    7. seventh
+    8. eight
+    9. ninth
+    10. tenth
+    11. eleventh
+    12. twelfth
+    13. thirteenth
+    14. fourteenth
+    15. fifteenth
+  * Bullet
+* Definition list
+  * Term :: definition
+    on multiple lines
+  * Term2 :: definition
+     this line needs to be lined under 'definition' up in tracwiki
+* Escaping
+  Right now I escape the following:
+  * simple escape ^ since it it used for superscipt
+  * escaping of WikiFormat auto-links.
+    *Note*: that LinksWhereIHave two uppercase in a row do /not/ need
+    a ! character  (e.g. =(rx (one-or-more (and upper lower)))=
+* Preformatted
+  #+BEGIN_EXAMPLE
+  This is an org-mode example
+  which becomes preformatted
+  #+END_EXAMPLE
+* block quote
+  #+BEGIN_QUOTE
+  This is a
+  quote.
+  Which I originally spread over multiple
+  lines. But apparently the newline
+  is not kept inside a blockquote. EXAMPLE does, and
+
+  someday [[#VerseBlock][Org VERSE blocks]] may.
+  #+END_QUOTE
+* *Extra* org mode blocks (that would be nice)
+** TODO Make BEGIN_VERSE work in trac wiki?
+   :PROPERTIES:
+   :CUSTOM_ID: VerseBlock
+   :END:
+
+  #+BEGIN_VERSE
+  Org verse:
+     To keep the line breaks in a region, but otherwise use normal
+     *formatting*, you can use this construct, which can also be used to
+     format poetry.
+  HTML: <p class="verse">
+        the <br> is added at the end of each line
+         </p>
+  #+END_VERSE
+
+* Discussion Citation -- NOT going to do (org may not have an export element for this)
+
+* DONE Tables
+  CLOSED: [2015-10-25 Sun 12:58]
+| Head Col1         | Head Col2                    | head Col3        |
+|-------------------+------------------------------+------------------|
+| value             | value                        | value            |
+|                   | no value to my left or right |                  |
+| only in the first |                              |                  |
+|                   |                              | Only in the last |
+|-------------------+------------------------------+------------------|
+| next area         | next                         |                  |
+| adf               | asd                          | asde             |
+|                   |                              |                  |
+| blanks above      | REally                       |                  |
+* TODO Links
+** TODO Intrwiki links like =[[TracWikiLink]]=
+   #+BEGIN_EXAMPLE
+     My thought is to use [[WikiLinkInternal][<optional description>]]
+         which would result in [[wiki:WikiLink|optional description]]
+     =(org-export-resolve-fuzzy-link)= is throwing user-error
+     [[file:~/.emacs.d/elpa/org-plus-contrib-20151005/ox.el::user-error%20"Unable%20to%20resolve%20link%20\"%25s\""%20raw-path][ox.el]]
+
+     [[TrackWiki]]  =should be [[wiki:TracWiki]]=
+     [[WikiLinkInternal][Some description]] =should be [[wiki:WikiLinkInternal|Some description]]
+   #+END_EXAMPLE
+
+
+** DONE Plain web address does the right thing.
+   CLOSED: [2015-10-25 Sun 22:16]
+  http://www.google.com
+
+** DONE Items with Camel Case are treated as "NOT" a wiki link
+   CLOSED: [2015-10-25 Sun 22:16]
+  NotAlink   =Should return !NotAlink= (see how =[[WikiLink]]= proposal)
+
+** DONE Most used links with description text:
+   CLOSED: [2015-10-25 Sun 22:16]
+  [[http://www.example.com][Edgewall Software]]
+
+
+* SOMEDAY TracLinks
+
+  What happens if I use #1 but don't want to link to issue !#1
+
+  Right now, I have to manually put the ! before the pound sign (!#)
+  * intial thought :: =[[#1]]= \rightarrow perhaps this should match my decision on how WikiLinks should be specified in org-mode
+  * realized :: This turns into a "custom_id" reference
+
+* TODO Setting Anchors [1/3]
+** DONE Links to headlines
+   CLOSED: [2015-10-25 Sun 21:43]
+   :PROPERTIES:
+   :CUSTOM_ID: MyLinkBackTag
+   :END:
+
+** TODO Link to org-mode radio targets.
+   This is a <<<radio target>>>
+   #+BEGIN_EXAMPLE
+   This is a [=orgradiotarget1 radio target]
+   #+END_EXAMPLE
+
+** TODO Footnotes (use org to put footnotes in for you)
+   #+BEGIN_EXAMPLE
+   These are broken right now
+   This is where we would test our footnote[fn:hn: This is the footnote for =fn.1=].
+   This is where we would test our second footnote[fn:hn: This is the second footnote for =fn.1=].
+   #+END_EXAMPLE
+   This is where we would test our footnote[fn:x: This is the footnote for =fn.1=].
+   This is where we would test our second footnote[fn:y: This is the second footnote for =fn.2=].
+
+   #+BEGIN_EXAMPLE
+   = TODO Footnotes (use org to put footnotes in for you)
+   This is where we would test our footnote^[=#fnr.1][#fn.1 1]^.
+
+
+   = Footnotes
+   ^[=#fn.1][#fnr.1 1]^ This is my footnote
+   #+END_EXAMPLE
+** *TEST of link*
+   This is a link back to [[#MyLinkBackTag][place to link]]
+
+* TODO Escaping Markup
+** TODO escape TracLinks in the short term
+   * Tickets: =#1= or =ticket:1=
+   * Reports: ={1}= or =report:1=
+   * Changesets: =r1=, =[1]= or =changeset:1=
+   * ...
+   * targeting other Trac instances,
+     so called InterTrac links:
+     - Tickets: #Trac1 or Trac:ticket:1
+     - Changesets: [Trac1] or Trac:changeset:1* TODO Images
+
+   see http://trac.edgewall.org/wiki/TracLinks
+* TODO Macros
+* Processors
+  #+BEGIN_SRC c++
+  #include "Foo.h"
+  namespace testns {
+  class MyTest {
+  public:
+      MyTest();
+      doSomeCoolStuff;
+      Foo &myOtherClassGetter();
+  private:
+      int32_t myValue;
+      Foo anotherClass
+  }
+  #+END_SRC
+
+  And how does this do with links?
+
+  #+BEGIN_SRC emacs-lisp -n -r
+  (save-excursion                  (ref:sc)
+     (goto-char (point-min)))      (ref:jump)
+  #+END_SRC
+  In line [[(sc)]] we remember the current position.  [[(jump)][Line (jump)]]
+  jumps to point-min.
+
+* DONE Table of contents
+  CLOSED: [2015-10-25 Sun 23:05]
+  If the #+OPTION is set for table of contents then add:
+  #+BEGIN_EXAMPLE
+  [[PageOutline]]
+  #+END_EXAMPLE

@@ -1,5 +1,10 @@
 # Compiled
 *.elc
-
+*.html
+*.pdf
+*.tex
+# backups
+*.~
+*.~[0-9]~
 # Packaging
 .cask

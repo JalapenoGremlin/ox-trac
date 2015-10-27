@@ -1,0 +1,33 @@
+* ox-tracwiki
+  Org Mode Export Backend for [[http://trac.edgewall.org/wiki/WikiFormat][Trac WikiFormat]]
+  
+  #+BEGIN_SRC emacs-lisp
+  (require 'ox-trac)
+  #+END_SRC
+
+  This will add a new Org Exporter backend to the =org-export-dispatch= with these
+  interactive functions:
+  * =org-trac-export-as-tracwiki=
+  * =org-trac-convert-region-to-trac=
+  * =org-trac-export-to-tracwiki=
+
+  Example Output of Region above.
+  #+BEGIN_EXAMPLE
+  [[PageOutline]]
+
+  = ox-tracwiki
+  Org Mode Export Backend for [[http://trac.edgewall.org/wiki/WikiFormat|Trac !WikiFormat]]
+
+  {{{
+  #!elisp
+  (require 'ox-trac)
+
+  }}}
+  
+  This will add a new Org Exporter backend to the `org-export-dispatch` with these
+  interactive functions:
+
+  * `org-trac-export-as-tracwiki`
+  * `org-trac-convert-region-to-trac`
+  * `org-trac-export-to-tracwiki`
+  #+END_EXAMPLE
