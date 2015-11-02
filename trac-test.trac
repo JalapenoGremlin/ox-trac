@@ -114,39 +114,12 @@ which becomes preformatted
      lines. But apparently the newline
      is not kept inside a blockquote. EXAMPLE does, and
      
-     someday [[#VerseBlock|Org VERSE blocks]] may.
+     VERSE blocks are different [[#VerseBlock|Org VERSE blocks]].
 
 
-= **Extra** org mode blocks (that would be nice) [0/1]
-== TODO Make BEGIN_VERSE work in trac wiki? #VerseBlock
-      I, too, dislike it.
-      Reading it, however, with a perfect 
-         contempt for it, one discovers in
-      it, after all, a place for the genuine.
-                     -- Marianne Moore
-
-
-=== NOTE: Trac does **NOT** support any form of &nbsp;
-
-
-=== Possible solutions
-1. Use \(\(~~~\)\) \(\LaTeX\) \\
-   This is really ugly
-2. Export Block as HTML \\
-   Weird but doable?
-   
-   {{{
-   {{{
-   #!html
-   <p class="verse">
-   I, too, dislike it.<br  />
-   Reading it, however, with a perfect<br  />
-   &#xa0;&#xa0;&#xa0;contempt for it, one discovers in<br  />
-   it, after all, a place for the genuine.<br  />
-   &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#x2013; Marianne Moore<br  />
-   </p>
-   }}}
-   }}}
+= **Extra** org mode blocks (that would be nice) [1/1]
+== DONE Make BEGIN_VERSE work in trac wiki? #VerseBlock
+I, //too//, **dislike it**.\\Reading it, __however__, with a perfect\\   contempt for it, one //**discovers**// in\\it, after all, a place for the genuine.\\               -- Marianne Moore\\                  (formatting added)\\
 
 
 = SOMEDAY Discussion Citation -- NOT going to do (org may not have an export element for this)

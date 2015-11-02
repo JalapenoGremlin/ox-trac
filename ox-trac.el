@@ -145,7 +145,7 @@ Emacs Lisp is a good example of this, where Trac needs 'elisp' ('cl' works well,
     ;; (timestamp . org-trac-timestamp)
     (underline . org-trac-underline)
     (verbatim . org-trac-verbatim)
-    ;; (verse-block . org-trac-verse-block)
+    (verse-block . org-trac-verse-block)
     )
   :export-block "TRAC"
   :options-alist
@@ -650,6 +650,26 @@ channel."
 	    value)))
 
 ;;;; Verse Block
+(defun org-trac-verse-block (verse-block contents info)
+  "Transcode a VERSE-BLOCK element from Org to TRAC.
+CONTENTS is verse block contents.  INFO is a plist holding
+contextual information."
+  ;; Replace each white space at beginning of a line with a
+  ;; non-breaking space.
+  (while (string-match "^[ \t]+" contents)
+    (let* ((num-ws (length (match-string 0 contents)))
+           (ws (let (out) (dotimes (i num-ws out)
+        		    (setq out (concat out (make-string 1 ?\xa0)))))))
+      (setq contents (replace-match ws nil t contents))))
+  ;; Replace each newline character with line break ([[BR]]).
+  ;; Also replace each blank line with a line break. Do not add
+  ;; a New-line "\\n" after the [[BR]]
+  (setq contents (replace-regexp-in-string
+		  "^ *\\\\\\\\$" "\\\\\\\\"
+		  (replace-regexp-in-string
+		   "\\(\\\\\\\\\\)?[ \t]*\n"
+		   (format "%s" "\\\\\\\\") contents)))
+  contents)
 
 
 
