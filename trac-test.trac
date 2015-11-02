@@ -1,0 +1,298 @@
+
+= Headline 1
+== Headline 2
+=== Headline 3
+==== Headline 4
+===== Headline 5
+====== Headline 6
+1.  Headline 7 (Not going to happen)
+
+    1.  Headline 8 (Not going to happen)
+
+
+= Font Styles
+* Attributes \\
+  **bold** \\
+  //italic// \\
+  //**Bold and Italic**// \\
+  `monospaced (*other markup ignored*)`\\
+  __underlined__ \\
+  ~~strike+through~~
+
+* A few Latex entities Recognized by org-mode \\
+  Right Arrow \(\rightarrow\) \\
+  Subset \(\subset\) \\
+  For All \(\forall\) \\
+  Infinity  \(\infty\) \\
+
+* Subscripts and Superscripts
+  sub_script sub,,script,, \\
+  super!^script super^script^
+
+
+= Paragraphs
+This is a paragraph
+written on two lines. This
+is the same way that org does it's output
+
+This is the next paragraph
+
+
+= DONE \(\LaTeX\) Fragment
+\(y = \left|\frac{1}{x}\right|\)
+
+That was some latex
+
+
+= DONE \(\LaTeX\) Environment
+This is also some \(\LaTeX\):
+
+{{{
+#!Latex
+  \begin{equation}
+  \newcommand{\dd}[1]{\mathrm{d}#1}
+
+  y = \left|\frac{1}{x}\right|
+  \ddot{\underline{\mathbf{r}}} = \frac{\dd{}{^2}\underline{\mathbf{r}}}{\dd{t}^2} = 0
+  \end{equation}
+
+}}}
+
+
+= Lists
+* Bullet List
+  on multiple lines
+  1. nested ordered list
+     1. Right now this doesn't change
+        to a new type of ordered list.
+        * nested un-ordered
+  2. second item in nested ordered
+  3. third
+  4. fourth
+  5. fifth
+     with some stuff below
+  6. sixith
+  7. seventh
+  8. eight
+  9. ninth
+  10. tenth
+  11. eleventh
+  12. twelfth
+  13. thirteenth
+  14. fourteenth
+  15. fifteenth
+* Bullet
+
+
+= Definition list
+ Term:: definition
+    on multiple lines
+ Term2:: definition
+    this line needs to be lined under 'definition' up in tracwiki
+
+
+= Escaping
+Right now I escape the following:
+
+* simple escape !^ since it it used for superscipt
+* escaping of !WikiFormat auto-links.
+  **Note**: that LinksWhereIHave two uppercase in a row do //not// need
+  a ! character  (e.g. `(rx (one-or-more (and upper lower)))`
+
+
+= Preformatted
+{{{
+This is an org-mode example
+which becomes preformatted
+}}}
+
+
+= block quote
+     This is a
+     quote.
+     Which I originally spread over multiple
+     lines. But apparently the newline
+     is not kept inside a blockquote. EXAMPLE does, and
+     
+     someday [[#VerseBlock|Org VERSE blocks]] may.
+
+
+= **Extra** org mode blocks (that would be nice) [0/1]
+== TODO Make BEGIN_VERSE work in trac wiki? #VerseBlock
+      I, too, dislike it.
+      Reading it, however, with a perfect 
+         contempt for it, one discovers in
+      it, after all, a place for the genuine.
+                     -- Marianne Moore
+
+
+=== NOTE: Trac does **NOT** support any form of &nbsp;
+
+
+=== Possible solutions
+1. Use \(\(~~~\)\) \(\LaTeX\) \\
+   This is really ugly
+2. Export Block as HTML \\
+   Weird but doable?
+   
+   {{{
+   {{{
+   #!html
+   <p class="verse">
+   I, too, dislike it.<br  />
+   Reading it, however, with a perfect<br  />
+   &#xa0;&#xa0;&#xa0;contempt for it, one discovers in<br  />
+   it, after all, a place for the genuine.<br  />
+   &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#x2013; Marianne Moore<br  />
+   </p>
+   }}}
+   }}}
+
+
+= SOMEDAY Discussion Citation -- NOT going to do (org may not have an export element for this)
+
+
+= DONE Tables
+||=Head Col1=||=Head Col2=||=head Col3=||
+||
+||value||value||value||
+|| ||no value to my left or right|| ||
+||only in the first|| || ||
+|| || ||Only in the last||
+||
+||next area||next|| ||
+||adf||asd||asde||
+|| || || ||
+||blanks above||REally|| ||
+
+
+= Links [3/4]
+== TODO Intra-wiki links like `[[TracWikiLink]]`
+{{{
+My thought is to use [[WikiLinkInternal][<optional description>]]
+    which would result in [[wiki:WikiLink|optional description]]
+=(org-export-resolve-fuzzy-link)= is throwing user-error
+[[file:~/.emacs.d/elpa/org-plus-contrib-20151005/ox.el::user-error%20"Unable%20to%20resolve%20link%20\"%25s\""%20raw-path][ox.el]]
+
+[[TrackWiki]]  =should be [[wiki:TracWiki]]=
+[[WikiLinkInternal][Some description]] =should be [[wiki:WikiLinkInternal|Some description]]
+}}}
+
+
+== DONE Plain web address does the right thing.
+<http://www.google.com>
+
+
+== DONE Items with Camel Case are treated as "NOT" a wiki link
+!NotAlink   `Should return !NotAlink` (see how `[[WikiLink]]` proposal)
+
+
+== DONE Most used links with description text:
+[[http://www.example.com|Edgewall Software]]
+
+
+= SOMEDAY !TracLinks
+What happens if I use #1 but don't want to link to issue !#1
+
+Right now, I have to manually put the ! before the pound sign (!#)
+
+ intial thought:: `[[#1]]` \(\rightarrow\) perhaps this should match my decision on how !WikiLinks should be specified in org-mode
+ realized:: This turns into a "custom_id" reference
+
+
+= TODO Setting Anchors [2/4]
+== DONE Links to headlines #MyLinkBackTag
+
+
+== TODO Link to org-mode radio targets.
+This is a radio target
+
+{{{
+This is a [=orgradiotarget1 radio target]
+}}}
+
+
+== DONE Footnotes (use org to put footnotes in for you)
+{{{
+These are broken right now
+This is where we would test our footnote[fn:hn: This is the footnote for =fn.1=].
+This is where we would test our second footnote[fn:hn: This is the second footnote for =fn.1=].
+}}}
+
+This is where we would test our footnote^[=#fnr.1][#fn.1 1]^.
+This is where we would test our second footnote^[=#fnr.2][#fn.2 2]^.
+
+{{{
+= TODO Footnotes (use org to put footnotes in for you)
+This is where we would test our footnote^[=#fnr.1][#fn.1 1]^.
+
+
+= Footnotes
+^[=#fn.1][#fnr.1 1]^ This is my footnote
+}}}
+
+
+== **TEST of link**
+This is a link back to [[#MyLinkBackTag|place to link]]
+
+
+= TODO Escaping Markup [0/1]
+== TODO escape !TracLinks in the short term
+* Tickets: `#1` or `ticket:1`
+* Reports: `{1}` or `report:1`
+* Changesets: `r1`, `[1]` or `changeset:1`
+* ...
+* targeting other Trac instances,
+  so called !InterTrac links:
+  * Tickets: #Trac1 or Trac:ticket:1
+  * Changesets: [Trac1] or Trac:changeset:1* TODO Images
+
+see <http://trac.edgewall.org/wiki/TracLinks>
+
+
+= SOMEDAY Macros
+
+
+= Processors [1/2]
+== DONE Basic Source code
+{{{
+#!c++
+#include "Foo.h"
+namespace testns {
+class MyTest {
+public:
+    MyTest();
+    doSomeCoolStuff;
+    Foo &myOtherClassGetter();
+private:
+    int32_t myValue;
+    Foo anotherClass
+}
+}}}
+
+And how does this do with links?
+
+
+== TODO Links into source code. Does Trac !WikiFormatting support this?
+{{{
+#!elisp
+1  (save-excursion
+2     (goto-char (point-min)))
+}}}
+
+In line 1 we remember the current position.  Line 2
+jumps to point-min.
+
+
+= DONE Table of contents
+If the #+OPTION is set for table of contents then add:
+
+{{{
+[[PageOutline]]
+}}}
+
+= Footnotes 
+^[=#fn.1][#fnr.1 1]^ This is the footnote for `fn.1`
+
+^[=#fn.2][#fnr.2 2]^ This is the second footnote for `fn.2`
+

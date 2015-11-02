@@ -1,10 +1,10 @@
-;;; ox-trac.el --- Org Export Backend to Trac WikiFormat  -*- lexical-binding: t; -*-
+;;; ox-trac.el --- Org Export Backend to Trac WikiFormat
 
 ;; Copyright (C) 2015  Brian J. Carlson
 
 ;; URL: https://github.com/JalapenoGremlin/ox-trac
 ;; Author: Brian J. Carlson <hacker@abutilize.com>
-;; Package-Requires:
+;; Package-Requires: ((org "8.0"))
 ;; Keywords: org-mode trac
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -49,7 +49,7 @@
   :package-version '(Org . "8.0"))
 
 (defcustom org-trac-wiki-max-heading-level 6
-  "Maximum Heading level of Trac WikiFormat"
+  "Maximum Heading level of Trac WikiFormat."
   :group 'org-export-trac
   :type 'integer
   :safe 'integerp)
@@ -68,9 +68,8 @@ This setting is valid when the heading  level is
           ))
 
 (defcustom org-trac-lang-alist '(("emacs-lisp" . "elisp") )
-  "Alist of languages that are not recognized by Github, to
-  languages that are. Emacs lisp is a good example of this, where
-  we can use lisp as a nice replacement."
+  "Alist of languages that are not recognized by Trac, to languages that are.
+Emacs Lisp is a good example of this, where Trac needs 'elisp' ('cl' works well, too) as a nice replacement."
   :group 'org-export-trac)
 
 (defcustom org-trac-footnote-separator "^, ^"
@@ -79,7 +78,7 @@ This setting is valid when the heading  level is
   :type 'string)
 
 (defcustom org-trac-footnote-level 1
-  "Heading level of Footnote block"
+  "Heading level of Footnote block."
   :group 'org-export-trac
   :type 'integer
   :safe 'integerp)
@@ -223,7 +222,7 @@ channel."
   ;;          (org-remove-indentation
   ;;           (org-export-format-code-default example-block info))) "\n}}}")
   (concat  "{{{\n" (org-remove-indentation
-                    (org-export-format-code-default example-block info)) "\n}}}")
+                    (org-export-format-code-default example-block info)) "}}}")
   )
 
 ;;; Export Block
@@ -413,7 +412,7 @@ channel."
 
 ;;;; Link
 (defun org-trac-link (link contents info)
-  "Transcode LINE-BREAK object into Trac WikiFormat format.
+  "Transcode LINK object into Trac WikiFormat format.
 CONTENTS is the link's description.  INFO is a plist used as
 a communication channel."
   (let ((link-org-files-as-trac
@@ -519,8 +518,9 @@ TEXT is the string to transcode.  INFO is a plist holding
 contextual information."
   (setq text (replace-regexp-in-string "\\^" "!^" text))
   (let ((case-fold-search nil))
-    (setq text (replace-regexp-in-string   (rx bow (group (and  upper (one-or-more lower) (+  (and upper (one-or-more lower))))) eow)
-                                           "!\\1" text)))
+    (unless (eq 'link (org-element-type (org-element-property :parent text)))
+      (setq text (replace-regexp-in-string   (rx bow (group (and  upper (one-or-more lower) (+  (and upper (one-or-more lower))))) eow)
+                                           "!\\1" text))))
   text)
 
 ;;;; Property Drawer
@@ -554,9 +554,8 @@ a communication channel."
 
 ;;; Source Block
 (defun org-trac-src-block (src-block contents info)
-  "Transcode SRC-BLOCK element into Github Flavored Trac WikiFormat
-format. CONTENTS is nil.  INFO is a plist used as a communication
-channel."
+  "Transcode SRC-BLOCK element into Flavored Trac WikiFormat format.
+CONTENTS is nil.  INFO is a plist used as a communication channel."
   (let* ((lang (org-element-property :language src-block))
          (lang (or (assoc-default lang org-trac-lang-alist) lang))
          (code (org-export-format-code-default src-block info))
@@ -589,13 +588,16 @@ contextual information."
 
 ;;;; Table
 (defun org-trac-table (table contents info)
-  (concat ;; "[TABLE]"
-   contents
-   ;;"[/TABLE]"
-   ))
+  "Transcode a TABLE object from Org to TRAC.
+CONTENTS is the contents of the object.  INFO is a plist holding
+contextual information."
+   contents)
 
 ;;;; Table Cell
 (defun org-trac-table-cell  (table-cell contents info)
+  "Transcode a TABLE-CELL object from Org to TRAC.
+CONTENTS is the contents of the object.  INFO is a plist holding
+contextual information."
   (let ((table-row (org-export-get-parent table-cell)))
     (concat ;;"[TABLE_CELL]"
      (if (org-export-table-row-starts-header-p table-row info)
@@ -611,15 +613,10 @@ contextual information."
 
 ;;;; Table Row
 (defun org-trac-table-row  (table-row contents info)
-  (concat "||" contents)
-  ;; (concat ;; "[TABLE_ROW]"
-  ;;                   (if (org-string-nw-p contents) (format "|%s" contents)
-  ;;                     "||")
-  ;;                   (when (org-export-table-row-ends-header-p table-row info)
-  ;;                     "||")
-  ;;                   ;;"[/TABLE_ROW]\n\n\n"
-  ;;                   )
-  )
+  "Transcode a TABLE-ROW object from Org to TRAC.
+CONTENTS is the contents of the object.  INFO is a plist holding
+contextual information."
+  (concat "||" contents))
 
 ;;;; Target
 
@@ -629,8 +626,6 @@ contextual information."
 CONTENTS is the transcoded contents string.  INFO is a plist used
 as a communication channel."
   contents)
-
-
 
 ;;;; Timestamp
 
@@ -659,7 +654,9 @@ channel."
 
 
 (defun org-trac--anchor (id desc attributes info)
-  "Format a Trac WikiFormat anchor."
+  "Format a Trac WikiFormat anchor.
+ID is the anchor name. DESC is description of the target anchor, ATTRIBUTES.
+INFO is unused"
   (format "[=#%s][#%s %s]" id attributes desc))
 
 
@@ -730,9 +727,9 @@ non-nil."
 
 ;;;###autoload
 (defun org-trac-convert-region-to-trac ()
-  "Assume the current region has org-mode syntax, and convert it to Trac WikiFormat.
+  "Assume the current region has 'org-mode' syntax, and convert it to Trac.
 This can be used in any buffer.  For example, you can write an
-itemized list in org-mode syntax in a Trac WikiFormat buffer and use
+itemized list in 'org-mode' syntax in a Trac WikiFormat buffer and use
 this command to convert it."
   (interactive)
   (org-export-replace-region-by 'trac))

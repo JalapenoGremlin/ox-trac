@@ -49,7 +49,8 @@
 
   That was some latex
 
-* TODO \LaTeX Environment
+* DONE \LaTeX Environment
+  CLOSED: [2015-10-26 Mon 21:55]
   This is also some \LaTeX:
 
   \begin{equation}
@@ -108,24 +109,39 @@
 
   someday [[#VerseBlock][Org VERSE blocks]] may.
   #+END_QUOTE
-* *Extra* org mode blocks (that would be nice)
+* *Extra* org mode blocks (that would be nice) [0/1]
 ** TODO Make BEGIN_VERSE work in trac wiki?
    :PROPERTIES:
    :CUSTOM_ID: VerseBlock
    :END:
 
-  #+BEGIN_VERSE
-  Org verse:
-     To keep the line breaks in a region, but otherwise use normal
-     *formatting*, you can use this construct, which can also be used to
-     format poetry.
-  HTML: <p class="verse">
-        the <br> is added at the end of each line
-         </p>
+   #+BEGIN_VERSE
+    I, too, dislike it.
+    Reading it, however, with a perfect 
+       contempt for it, one discovers in
+    it, after all, a place for the genuine.
+                   -- Marianne Moore
   #+END_VERSE
-
-* Discussion Citation -- NOT going to do (org may not have an export element for this)
-
+*** NOTE: Trac does *NOT* support any form of &nbsp;  
+*** Possible solutions
+    1. Use \(~~~\) \LaTeX \\
+       This is really ugly
+    2. Export Block as HTML \\
+       Weird but doable?
+       #+BEGIN_EXAMPLE
+       {{{
+       #!html
+       <p class="verse">
+       I, too, dislike it.<br  />
+       Reading it, however, with a perfect<br  />
+       &#xa0;&#xa0;&#xa0;contempt for it, one discovers in<br  />
+       it, after all, a place for the genuine.<br  />
+       &#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#x2013; Marianne Moore<br  />
+       </p>
+       }}}
+       #+END_EXAMPLE
+         
+* SOMEDAY Discussion Citation -- NOT going to do (org may not have an export element for this)
 * DONE Tables
   CLOSED: [2015-10-25 Sun 12:58]
 | Head Col1         | Head Col2                    | head Col3        |
@@ -139,8 +155,8 @@
 | adf               | asd                          | asde             |
 |                   |                              |                  |
 | blanks above      | REally                       |                  |
-* TODO Links
-** TODO Intrwiki links like =[[TracWikiLink]]=
+* Links [3/4]
+** TODO Intra-wiki links like =[[TracWikiLink]]=
    #+BEGIN_EXAMPLE
      My thought is to use [[WikiLinkInternal][<optional description>]]
          which would result in [[wiki:WikiLink|optional description]]
@@ -150,7 +166,6 @@
      [[TrackWiki]]  =should be [[wiki:TracWiki]]=
      [[WikiLinkInternal][Some description]] =should be [[wiki:WikiLinkInternal|Some description]]
    #+END_EXAMPLE
-
 
 ** DONE Plain web address does the right thing.
    CLOSED: [2015-10-25 Sun 22:16]
@@ -164,16 +179,14 @@
    CLOSED: [2015-10-25 Sun 22:16]
   [[http://www.example.com][Edgewall Software]]
 
-
 * SOMEDAY TracLinks
-
   What happens if I use #1 but don't want to link to issue !#1
 
   Right now, I have to manually put the ! before the pound sign (!#)
   * intial thought :: =[[#1]]= \rightarrow perhaps this should match my decision on how WikiLinks should be specified in org-mode
   * realized :: This turns into a "custom_id" reference
 
-* TODO Setting Anchors [1/3]
+* TODO Setting Anchors [2/4]
 ** DONE Links to headlines
    CLOSED: [2015-10-25 Sun 21:43]
    :PROPERTIES:
@@ -186,7 +199,8 @@
    This is a [=orgradiotarget1 radio target]
    #+END_EXAMPLE
 
-** TODO Footnotes (use org to put footnotes in for you)
+** DONE Footnotes (use org to put footnotes in for you)
+   CLOSED: [2015-10-26 Mon 21:56]
    #+BEGIN_EXAMPLE
    These are broken right now
    This is where we would test our footnote[fn:hn: This is the footnote for =fn.1=].
@@ -206,7 +220,7 @@
 ** *TEST of link*
    This is a link back to [[#MyLinkBackTag][place to link]]
 
-* TODO Escaping Markup
+* TODO Escaping Markup [0/1]
 ** TODO escape TracLinks in the short term
    * Tickets: =#1= or =ticket:1=
    * Reports: ={1}= or =report:1=
@@ -218,8 +232,10 @@
      - Changesets: [Trac1] or Trac:changeset:1* TODO Images
 
    see http://trac.edgewall.org/wiki/TracLinks
-* TODO Macros
-* Processors
+* SOMEDAY Macros
+* Processors [1/2]
+** DONE Basic Source code
+   CLOSED: [2015-10-26 Mon 21:58]
   #+BEGIN_SRC c++
   #include "Foo.h"
   namespace testns {
@@ -235,11 +251,11 @@
   #+END_SRC
 
   And how does this do with links?
-
-  #+BEGIN_SRC emacs-lisp -n -r
-  (save-excursion                  (ref:sc)
-     (goto-char (point-min)))      (ref:jump)
-  #+END_SRC
+** TODO Links into source code. Does Trac WikiFormatting support this?
+    #+BEGIN_SRC emacs-lisp -n -r
+      (save-excursion                  (ref:sc)
+         (goto-char (point-min)))      (ref:jump)
+    #+END_SRC
   In line [[(sc)]] we remember the current position.  [[(jump)][Line (jump)]]
   jumps to point-min.
 
