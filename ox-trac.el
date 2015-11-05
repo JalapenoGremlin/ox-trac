@@ -32,6 +32,8 @@
 ;; * org-trac-link is little more than a rudimentary (slightly
 ;;   modified) version link org-md-link by only changing order of description and
 ;;   path
+;; * Option for "type" of wiki:   ''''bold'''' or **bold**; [[BR]] or \\
+;; * Add options (via customization) to TOC [[PageOutline(1-6,Alternate Title,inline,unnumbered)]]
 
 (eval-when-compile (require 'cl))
 (require 'ox-ascii)
@@ -150,7 +152,8 @@ Emacs Lisp is a good example of this, where Trac needs 'elisp' ('cl' works well,
   :export-block "TRAC"
   :options-alist
   '((:trac-footnote-separator nil nil org-trac-footnote-separator)
-    (:trac-footnote-level nil nil org-trac-footnote-level)))
+    (:trac-footnote-level nil nil org-trac-footnote-level)
+    (:with-sub-superscript nil "^" org-export-with-sub-superscripts)))
 
 
 ;;; Filters
@@ -658,12 +661,11 @@ contextual information."
   ;; non-breaking space.
   (while (string-match "^[ \t]+" contents)
     (let* ((num-ws (length (match-string 0 contents)))
-           (ws (let (out) (dotimes (i num-ws out)
-        		    (setq out (concat out (make-string 1 ?\xa0)))))))
+           (ws (make-string num-ws ?\xa0)))
       (setq contents (replace-match ws nil t contents))))
-  ;; Replace each newline character with line break ([[BR]]).
+  ;; Replace each newline character with line break (  [[BR]] or \\ ).
   ;; Also replace each blank line with a line break. Do not add
-  ;; a New-line "\\n" after the [[BR]]
+  ;; a New-line "\\n" after the [[BR]] or \\
   (setq contents (replace-regexp-in-string
 		  "^ *\\\\\\\\$" "\\\\\\\\"
 		  (replace-regexp-in-string

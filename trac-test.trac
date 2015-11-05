@@ -17,7 +17,7 @@
   //**Bold and Italic**// \\
   `monospaced (*other markup ignored*)`\\
   __underlined__ \\
-  ~~strike+through~~
+  ~~strike through~~
 
 * A few Latex entities Recognized by org-mode \\
   Right Arrow \(\rightarrow\) \\
@@ -25,9 +25,11 @@
   For All \(\forall\) \\
   Infinity  \(\infty\) \\
 
-* Subscripts and Superscripts
+* Subscripts and Superscripts \\
   sub_script sub,,script,, \\
   super!^script super^script^
+* '' double quotes
+* `{{{ }}}` triple curly brase
 
 
 = Paragraphs
@@ -194,6 +196,7 @@ This is where we would test our second footnote[fn:hn: This is the second footno
 
 This is where we would test our footnote^[=#fnr.1][#fn.1 1]^.
 This is where we would test our second footnote^[=#fnr.2][#fn.2 2]^.
+This is where we would test our third footnote^[=#fnr.3][#fn.3 3]^.
 
 {{{
 = TODO Footnotes (use org to put footnotes in for you)
@@ -257,6 +260,9 @@ In line 1 we remember the current position.  Line 2
 jumps to point-min.
 
 
+= TODO Put comments into output
+
+
 = DONE Table of contents
 If the #+OPTION is set for table of contents then add:
 
@@ -265,7 +271,9 @@ If the #+OPTION is set for table of contents then add:
 }}}
 
 = Footnotes 
-^[=#fn.1][#fnr.1 1]^ This is the footnote for `fn.1`
+^[=#fn.1][#fnr.1 1]^ This is the first footnote
 
-^[=#fn.2][#fnr.2 2]^ This is the second footnote for `fn.2`
+^[=#fn.2][#fnr.2 2]^ This is the second footnote
+
+^[=#fn.3][#fnr.3 3]^ This is the second footnote
 

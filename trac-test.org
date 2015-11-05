@@ -26,7 +26,7 @@
     /*Bold and Italic*/ \\
     =monospaced (*other markup ignored*)=\\
     _underlined_ \\
-    +strike+through+
+    +strike through+
 
   * A few Latex entities Recognized by org-mode \\
     Right Arrow \rightarrow \\
@@ -34,9 +34,11 @@
     For All \forall \\
     Infinity  \infty \\
 
-  * Subscripts and Superscripts
+  * Subscripts and Superscripts \\
     sub_script sub_{script} \\
     super^script super^{script}
+  * '' double quotes
+  * ={{{ }}}= triple curly brase
 * Paragraphs
   This is a paragraph
   written on two lines. This
@@ -189,8 +191,9 @@
    This is where we would test our footnote[fn:hn: This is the footnote for =fn.1=].
    This is where we would test our second footnote[fn:hn: This is the second footnote for =fn.1=].
    #+END_EXAMPLE
-   This is where we would test our footnote[fn:x: This is the footnote for =fn.1=].
-   This is where we would test our second footnote[fn:y: This is the second footnote for =fn.2=].
+   This is where we would test our footnote[fn:1: This is the first footnote].
+   This is where we would test our second footnote[fn:y: This is the second footnote].
+   This is where we would test our third footnote[fn:: This is the second footnote].
 
    #+BEGIN_EXAMPLE
    = TODO Footnotes (use org to put footnotes in for you)
@@ -242,6 +245,13 @@
   In line [[(sc)]] we remember the current position.  [[(jump)][Line (jump)]]
   jumps to point-min.
 
+* TODO Put comments into output
+  # This is a comment 
+  #+BEGIN_COMMENT
+  This is 
+  a multi-line
+  comment
+  #+END_COMMENT
 * DONE Table of contents
   CLOSED: [2015-10-25 Sun 23:05]
   If the #+OPTION is set for table of contents then add:
