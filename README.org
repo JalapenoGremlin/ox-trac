@@ -34,5 +34,4 @@
 
 * Melpa
   Package is available from melpa. 
-  [[http://melpa.org/#/ox-trac][file:http://melpa.org/packages/ox-trac-badge.svg]]
-
+  [[https://melpa.org/#/ox-trac][file:https://melpa.org/packages/ox-trac-badge.svg]]
