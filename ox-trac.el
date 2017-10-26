@@ -3,8 +3,8 @@
 ;; Copyright (C) 2015  Brian J. Carlson
 
 ;; URL: https://github.com/JalapenoGremlin/ox-trac
-;; Author: Brian J. Carlson <hacker@abutilize.com>
-;; Package-Requires: ((org "8.0"))
+;; Author: Brian J. Carlson <hacker (at) abutilize (dot) com>
+;; Package-Requires: ((org "9.0"))
 ;; Keywords: org-mode trac
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -86,7 +86,6 @@ Emacs Lisp is a good example of this, where Trac needs 'elisp' ('cl' works well,
 ;;; Define Back-End
 (org-export-define-derived-backend
     'trac 'ascii
-  :export-block '("TRACWIKI" "TRAC")
   :filters-alist '((:filter-parse-tree . org-trac-separate-elements))
   :menu-entry
   '(?T "Export to Trac Wiki Formatting"
@@ -147,7 +146,6 @@ Emacs Lisp is a good example of this, where Trac needs 'elisp' ('cl' works well,
     (verbatim . org-trac-verbatim)
     (verse-block . org-trac-verse-block)
     )
-  :export-block "TRAC"
   :options-alist
   '((:trac-footnote-separator nil nil org-trac-footnote-separator)
     (:trac-footnote-level nil nil org-trac-footnote-level)))

@@ -55,7 +55,6 @@
 
   \begin{equation}
   \newcommand{\dd}[1]{\mathrm{d}#1}
-
   y = \left|\frac{1}{x}\right|
   \ddot{\underline{\mathbf{r}}} = \frac{\dd{}{^2}\underline{\mathbf{r}}}{\dd{t}^2} = 0
   \end{equation}
@@ -124,6 +123,10 @@
                       (formatting added)
    #+END_VERSE
          
+* export only for tracwiki
+  #+BEGIN_EXPORT tracwiki
+  This is only exported for tracwiki
+  #+END_EXPORT
 * SOMEDAY Discussion Citation -- NOT going to do (org may not have an export element for this)
 * DONE Tables
   CLOSED: [2015-10-25 Sun 12:58]
