@@ -1,4 +1,4 @@
-* ox-tracwiki
+* ox-trac
   Org Mode Export Backend for [[http://trac.edgewall.org/wiki/WikiFormat][Trac WikiFormat]]
 
   #+BEGIN_SRC emacs-lisp
@@ -30,3 +30,9 @@
   * `org-trac-convert-region-to-trac`
   * `org-trac-export-to-tracwiki`
   #+END_EXAMPLE
+
+
+* Melpa
+  Package is available from melpa. 
+  [[http://melpa.org/#/ox-trac][file:http://melpa.org/packages/ox-trac-badge.svg]]
+
